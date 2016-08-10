@@ -375,7 +375,7 @@ static PIXELFORMATDESCRIPTOR
     initPixelFormatDescriptor(&pfd);
     pfd.iPixelType = PFD_TYPE_RGBA;
     pfd.iLayerType  = PFD_MAIN_PLANE;
-    pfd.dwFlags = PFD_SUPPORT_OPENGL | PFD_SUPPORT_COMPOSITION;
+    pfd.dwFlags = PFD_SUPPORT_OPENGL | PFD_SUPPORT_GDI; // | PFD_SUPPORT_COMPOSITION
     const bool isPixmap = (additional.formatFlags & QWindowsGLRenderToPixmap) != 0;
     pfd.dwFlags |= isPixmap ? PFD_DRAW_TO_BITMAP : PFD_DRAW_TO_WINDOW;
     if (!(additional.formatFlags & QWindowsGLDirectRendering))
@@ -807,7 +807,7 @@ static inline HGLRC createDummyGLContext(HDC dc)
         return nullptr;
     PIXELFORMATDESCRIPTOR pixelFormDescriptor;
     initPixelFormatDescriptor(&pixelFormDescriptor);
-    pixelFormDescriptor.dwFlags = PFD_SUPPORT_OPENGL | PFD_DRAW_TO_WINDOW | PFD_GENERIC_FORMAT;
+    pixelFormDescriptor.dwFlags = PFD_SUPPORT_OPENGL | PFD_DRAW_TO_WINDOW | PFD_GENERIC_FORMAT | PFD_SUPPORT_GDI;
     pixelFormDescriptor.iPixelType = PFD_TYPE_RGBA;
     // Use the GDI variant, for the dummy this is fine, even when using something other than opengl32.dll.
     const int pixelFormat = ChoosePixelFormat(dc, &pixelFormDescriptor);
