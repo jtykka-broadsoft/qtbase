@@ -76,6 +76,7 @@ public:
         : source(0)
         , target(0)
         , data(0)
+        , enableSlideBack(true)
     { }
     QObject *source;
     QObject *target;
@@ -86,6 +87,7 @@ public:
     Qt::DropActions supported_actions;
     Qt::DropAction default_action;
     QMap<Qt::DropAction, QPixmap> customCursors;
+    bool enableSlideBack;
 };
 
 class Q_GUI_EXPORT QDragManager : public QObject {
