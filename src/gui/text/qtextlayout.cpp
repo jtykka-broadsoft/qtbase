@@ -2334,6 +2334,8 @@ QList<QGlyphRun> QTextLine::glyphRuns(int from, int length) const
                 flags |= QGlyphRun::Overline;
             if (font.underline())
                 flags |= QGlyphRun::Underline;
+            if (font.spellCheckUnderline())
+                flags |= QGlyphRun::SpellCheckUnderline;
             if (font.strikeOut())
                 flags |= QGlyphRun::StrikeOut;
         }
