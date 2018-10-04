@@ -106,6 +106,9 @@ public:
 
     void outputString(const char *msg);
 
+    typedef void(*CustomLoggerCallback)(void*, const char*);
+    static void setCustomLoggerCallback(CustomLoggerCallback callback);
+
 protected:
     void filterUnprintable(char *str) const;
     FILE *stream;

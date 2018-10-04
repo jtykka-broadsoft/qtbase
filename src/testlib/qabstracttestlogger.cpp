@@ -58,6 +58,11 @@
 
 QT_BEGIN_NAMESPACE
 
+namespace QTest
+{
+    static QAbstractTestLogger::CustomLoggerCallback customLoggerCallback = 0;
+}
+
 QAbstractTestLogger::QAbstractTestLogger(const char *filename)
 {
     if (!filename) {
@@ -112,7 +117,16 @@ void QAbstractTestLogger::outputString(const char *msg)
     ::fputs(filtered, stream);
     ::fflush(stream);
 
+    if (QTest::customLoggerCallback) {
+        (*QTest::customLoggerCallback)(this, filtered);
+    }
+
     delete [] filtered;
+}
+
+void QAbstractTestLogger::setCustomLoggerCallback(CustomLoggerCallback callback)
+{
+    QTest::customLoggerCallback = callback;
 }
 
 void QAbstractTestLogger::startLogging()
