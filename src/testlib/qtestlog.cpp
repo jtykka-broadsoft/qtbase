@@ -505,6 +505,11 @@ void QTestLog::stopLogging()
     saveCoverageTool(QTestResult::currentAppName(), failCount() != 0, QTestLog::installedTestCoverage());
 }
 
+void QTestLog::setCustomLoggerCallback(CustomLoggerCallback callback)
+{
+    QAbstractTestLogger::setCustomLoggerCallback(callback);
+}
+
 void QTestLog::addLogger(LogMode mode, const char *filename)
 {
     if (filename && strcmp(filename, "-") == 0)
