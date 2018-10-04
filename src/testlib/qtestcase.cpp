@@ -271,6 +271,10 @@ static bool isValidSlot(const QMetaMethod &sl)
 namespace QTest
 {
     class WatchDog;
+    void setCustomLoggerCallback(CustomLoggerCallback callback)
+    {
+        QTestLog::setCustomLoggerCallback(callback);
+    }
 
     static QObject *currentTestObject = 0;
     static QString mainSourcePath;
