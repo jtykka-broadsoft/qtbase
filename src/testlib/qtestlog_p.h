@@ -106,6 +106,8 @@ public:
     static void startLogging();
     static void stopLogging();
 
+    typedef void(*CustomLoggerCallback)(void*, const char*);
+    static void setCustomLoggerCallback(CustomLoggerCallback callback);
     static void addLogger(LogMode mode, const char *filename);
 
     static int loggerCount();

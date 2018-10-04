@@ -236,6 +236,8 @@ class QTestData;
 #define QTEST_COMPARE_DECL(KLASS)\
     template<> Q_TESTLIB_EXPORT char *toString<KLASS >(const KLASS &);
 
+#define QT_CUSTOM_LOGGING_SUPPORT
+
 namespace QTest
 {
     namespace Internal {
@@ -286,6 +288,8 @@ namespace QTest
     template <class... Types>
     inline char *toString(const std::tuple<Types...> &tuple);
 
+    typedef void(*CustomLoggerCallback)(void*, const char*);
+    Q_TESTLIB_EXPORT void setCustomLoggerCallback(CustomLoggerCallback callback);
     Q_TESTLIB_EXPORT char *toHexRepresentation(const char *ba, int length);
     Q_TESTLIB_EXPORT char *toPrettyCString(const char *unicode, int length);
     Q_TESTLIB_EXPORT char *toPrettyUnicode(QStringView string);
