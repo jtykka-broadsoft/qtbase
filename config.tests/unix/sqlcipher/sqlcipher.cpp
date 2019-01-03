@@ -1,4 +1,4 @@
-#include <sqlcipher/sqlite3.h>
+#include <sqlite3.h>
 
 int main(int, char **)
 {
