@@ -148,6 +148,8 @@ public:
 
     void preConnectFinished();
 
+    QString peerVerifyName() const;
+    void setPeerVerifyName(const QString &peerName);
 private:
     Q_DECLARE_PRIVATE(QHttpNetworkConnection)
     Q_DISABLE_COPY(QHttpNetworkConnection)
@@ -279,6 +281,8 @@ public:
 #ifndef QT_NO_BEARERMANAGEMENT
     QSharedPointer<QNetworkSession> networkSession;
 #endif
+
+    QString peerVerifyName;
 
     friend class QHttpNetworkConnectionChannel;
 };
