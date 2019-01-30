@@ -395,6 +395,7 @@ bool QHttpNetworkConnectionChannel::ensureConnection()
             if (!connection->sslContext().isNull())
                 QSslSocketPrivate::checkSettingSslContext(sslSocket, connection->sslContext());
 
+            sslSocket->setPeerVerifyName(connection->d_func()->peerVerifyName);
             sslSocket->connectToHostEncrypted(connectHost, connectPort, QIODevice::ReadWrite, networkLayerPreference);
             if (ignoreAllSslErrors)
                 sslSocket->ignoreSslErrors();
