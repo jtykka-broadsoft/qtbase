@@ -156,6 +156,16 @@
                                               selector:@selector(textInputContextKeyboardSelectionDidChangeNotification:)
                                               name:NSTextInputContextKeyboardSelectionDidChangeNotification
                                               object:nil];
+
+        static BOOL initialized = NO;
+        /* Make sure code only gets executed once. */
+        if (initialized == NO)
+        {
+            initialized = YES;
+            [NSApp registerServicesMenuSendTypes:[NSArray arrayWithObjects:NSStringPboardType,
+                                                  NSRTFPboardType, nil] returnTypes:[NSArray arrayWithObjects:NSStringPboardType,
+                                                  nil]];
+        }
     }
     return self;
 }
