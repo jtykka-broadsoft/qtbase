@@ -203,10 +203,8 @@
     QObject *fo = m_platformWindow->window()->focusObject();
     if (!fo)
         return nil;
-    QInputMethodQueryEvent queryEvent(Qt::ImEnabled | Qt::ImCurrentSelection);
+    QInputMethodQueryEvent queryEvent(Qt::ImCurrentSelection);
     if (!QCoreApplication::sendEvent(fo, &queryEvent))
-        return nil;
-    if (!queryEvent.value(Qt::ImEnabled).toBool())
         return nil;
 
     QString selectedText = queryEvent.value(Qt::ImCurrentSelection).toString();
@@ -238,10 +236,8 @@
     QObject *fo = m_platformWindow->window()->focusObject();
     if (!fo)
         return selectedRange;
-    QInputMethodQueryEvent queryEvent(Qt::ImEnabled | Qt::ImCurrentSelection);
+    QInputMethodQueryEvent queryEvent(Qt::ImCurrentSelection);
     if (!QCoreApplication::sendEvent(fo, &queryEvent))
-        return selectedRange;
-    if (!queryEvent.value(Qt::ImEnabled).toBool())
         return selectedRange;
 
     QString selectedText = queryEvent.value(Qt::ImCurrentSelection).toString();
@@ -310,6 +306,45 @@
         if (QCocoaInputContext *ic = qobject_cast<QCocoaInputContext *>(QCocoaIntegration::instance()->inputContext()))
             ic->updateLocale();
     }
+}
+
+- (id)validRequestorForSendType:(NSString *)sendType
+            returnType:(NSString *)returnType
+{
+    if ([sendType isEqual:NSStringPboardType] && ![self selectionIsEmpty] ) {
+            return self;
+    }
+    return [super validRequestorForSendType:sendType returnType:returnType];
+}
+
+- (BOOL)writeSelectionToPasteboard:(NSPasteboard *)pboard
+            types:(NSArray *)types
+{
+     NSArray *typesDeclared;
+
+    if ([types containsObject:NSStringPboardType] == NO) {
+        return NO;
+    }
+    typesDeclared = [NSArray arrayWithObject:NSStringPboardType];
+    [pboard declareTypes:typesDeclared owner:nil];
+    return [pboard setString:[self selection]
+                    forType:NSStringPboardType];
+}
+
+- (BOOL) selectionIsEmpty
+{
+    NSString* string = [self selection];
+    return (!string || [string length] == 0) ? YES : NO;
+}
+
+- (NSString*) selection
+{
+    NSAttributedString* sel = nil;
+    NSRange selRange = [self selectedRange];
+    if (selRange.length != 0)
+        sel = [self attributedSubstringForProposedRange:selRange actualRange:nil];
+
+    return sel.string;
 }
 
 @end
