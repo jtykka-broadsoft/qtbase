@@ -1236,8 +1236,10 @@ qreal QWindow::devicePixelRatio() const
     // If there is no platform window use the associated screen's devicePixelRatio,
     // which typically is the primary screen and will be correct for single-display
     // systems (a very common case).
-    if (!d->platformWindow)
-        return screen()->devicePixelRatio();
+    qreal defaultPixelRatio = 1.0; //make sure we never return 0
+    if (!d->platformWindow){
+        return screen() ? screen()->devicePixelRatio() : defaultPixelRatio;
+    }
 
     return d->platformWindow->devicePixelRatio() * QHighDpiScaling::factor(this);
 }
