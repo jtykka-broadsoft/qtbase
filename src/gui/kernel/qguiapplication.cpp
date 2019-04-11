@@ -1032,8 +1032,10 @@ qreal QGuiApplication::devicePixelRatio() const
     }
 
     topDevicePixelRatio = 1.0; // make sure we never return 0.
-    for (QScreen *screen : qAsConst(QGuiApplicationPrivate::screen_list))
-        topDevicePixelRatio = qMax(topDevicePixelRatio, screen->devicePixelRatio());
+    for (QScreen *screen : qAsConst(QGuiApplicationPrivate::screen_list)) {
+        if( screen )
+            topDevicePixelRatio = qMax(topDevicePixelRatio, screen->devicePixelRatio());
+    }
 
     return topDevicePixelRatio;
 }
