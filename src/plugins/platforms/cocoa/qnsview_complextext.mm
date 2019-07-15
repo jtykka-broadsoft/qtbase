@@ -233,6 +233,9 @@
 {
     NSRange selectedRange = {0, 0};
 
+    if(!m_platformWindow || !m_platformWindow->window())
+       return selectedRange;
+
     QObject *fo = m_platformWindow->window()->focusObject();
     if (!fo)
         return selectedRange;
