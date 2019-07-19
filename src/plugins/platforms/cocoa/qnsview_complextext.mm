@@ -200,6 +200,10 @@
 - (NSAttributedString *)attributedSubstringForProposedRange:(NSRange)aRange actualRange:(NSRangePointer)actualRange
 {
     Q_UNUSED(actualRange)
+
+    if(!m_platformWindow || !m_platformWindow->window())
+       return nil;
+
     QObject *fo = m_platformWindow->window()->focusObject();
     if (!fo)
         return nil;
