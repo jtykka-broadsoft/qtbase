@@ -145,9 +145,7 @@
             "test": "unix/sqlcipher",
             "sources": [
                 { "libs": "$$(SQLCIPHER_DIR)/lib/libsqlcipher.a -lcrypto", "condition": "!config.win32" },
-                { "libs": "$$(SQLCIPHER_DIR)/lib/libsqlcipher.lib -llibeay32", "condition": "config.win32" },
-                { "type": "pkgConfig", "args": "sqlite3" },
-                "-lsqlite3"
+                { "libs": "$$(SQLCIPHER_DIR)/lib/libsqlcipher.lib -llibeay32", "condition": "config.win32" }
             ]
         },
         "sqlite3": {

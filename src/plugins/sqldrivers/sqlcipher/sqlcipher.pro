@@ -10,8 +10,6 @@ isEmpty(SQLCIPHER_DIR) {
     error(Environment variable SQLCIPHER_DIR is not set.)
 }
 
-include($$PWD/../../../3rdparty/sqlite.pri)
-
 INCLUDEPATH += $${SQLCIPHER_DIR}/include/sqlcipher
 
 win32: {
