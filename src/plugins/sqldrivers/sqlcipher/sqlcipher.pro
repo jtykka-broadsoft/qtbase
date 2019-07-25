@@ -12,6 +12,8 @@ isEmpty(SQLCIPHER_DIR) {
 
 include($$PWD/../../../3rdparty/sqlite.pri)
 
+INCLUDEPATH += $${SQLCIPHER_DIR}/include/sqlcipher
+
 win32: {
     CONFIG(release, debug|release) {
         LIBS += $${SQLCIPHER_DIR}/lib/libsqlcipher.lib
