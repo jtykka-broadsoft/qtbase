@@ -1877,12 +1877,12 @@ void QWindowsWindow::checkForScreenChanged(ScreenChangeMode mode)
     if (newScreen == nullptr || newScreen == currentScreen)
         return;
     // For screens with different DPI: postpone until WM_DPICHANGE
-    if (mode == FromGeometryChange
+    if (mode == FromGeometryChange && currentScreen
         && !equalDpi(currentScreen->logicalDpi(), newScreen->logicalDpi())) {
         return;
     }
     qCDebug(lcQpaWindows).noquote().nospace() << __FUNCTION__
-        << ' ' << window() << " \"" << currentScreen->name()
+        << ' ' << window() << " \"" << (currentScreen ? currentScreen->name() : "null")
         << "\"->\"" << newScreen->name() << '"';
     if (mode == FromGeometryChange)
         setFlag(SynchronousGeometryChangeEvent);
