@@ -1882,7 +1882,7 @@ void QWindowsWindow::checkForScreenChanged(ScreenChangeMode mode)
         return;
     }
     qCDebug(lcQpaWindows).noquote().nospace() << __FUNCTION__
-        << ' ' << window() << " \"" << (currentScreen ? currentScreen->name() : "null")
+        << ' ' << window() << " \"" << (currentScreen ? currentScreen->name() : QString::fromLatin1("null"))
         << "\"->\"" << newScreen->name() << '"';
     if (mode == FromGeometryChange)
         setFlag(SynchronousGeometryChangeEvent);
